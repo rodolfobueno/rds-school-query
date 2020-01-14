@@ -1,0 +1,44 @@
+spring:
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/rds-query
+    username: postgres
+    password: totvs@123
+
+  flyway:
+    schemas: public    
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    properties:      
+      hibernate:
+        format_sql: true
+        show_sql: true
+        temp:
+          use_jdbc_metadata_defaults: false
+      database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+
+  cloud:
+    stream:
+      defaultBinder: rabbit1
+      bindings:
+        rds-input-events:
+          destination: rds-input-events
+          group: requests
+        rds-output-events:
+          destination: rds-input-events
+      binders:
+        rabbit1:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                port: 5672
+                username: guest
+                password: guest
+
+server:
+  port: 8882
