@@ -1,4 +1,4 @@
-Projeto RDS-SCHOOL-ADMIN: Command
+Projeto RDS-SCHOOL-QUERY: Query
 
 # Objetivo
 
