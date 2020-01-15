@@ -12,30 +12,32 @@ import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import br.com.rdschool.query.pessoa.model.AbstractPessoa;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 
 @Entity
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "professor")
 public class Professor extends AbstractPessoa {
-	
+
 	@Id
 	@Column
 	private String id;
-	
+
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private Titulacao titulacao;
+
+	@Builder
+	public Professor(String id, String nome, String cpf, String email, @NotNull Titulacao titulacao) {
+		super(id, nome, cpf);
+		this.id = id;
+		this.titulacao = titulacao;
+	}
 
 }

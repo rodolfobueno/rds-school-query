@@ -13,33 +13,37 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import br.com.rdschool.query.pessoa.model.AbstractPessoa;
 import br.com.rdschool.query.turma.repository.FormaIngresso;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Data
-@EqualsAndHashCode(callSuper=true)
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 
 @Entity
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "aluno")
 public class Aluno extends AbstractPessoa {
-	
+
 	@Id
 	@Column
 	private String id;
-	
+
 	@NotNull
 	private Integer matricula;
-	
+
 	@Enumerated(EnumType.STRING)
 	@NotNull
 	private FormaIngresso formaIngresso;
-	
+
+	@Builder
+	public Aluno(String id, String nome, String cpf, String email, @NotNull Integer matricula,
+			@NotNull FormaIngresso formaIngresso) {
+		super(id, nome, cpf);
+		this.id = id;
+		this.matricula = matricula;
+		this.formaIngresso = formaIngresso;
+	}
+
 }
